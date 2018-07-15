@@ -80,19 +80,5 @@ router.post('/updateProduct/:id', function (req, res) {
         });
 });
 
-// router.post('/addNewProduct', function (req, res) {
-//     var product = new Product(req.body);
-
-//     product.save(function (err) {
-//         if (err) {
-//             console.log(err);
-//             res.render("shop/addProduct");
-//         } else {
-//             console.log("Successfully created an product.");
-//             res.redirect("/");
-//         }
-//     });
-// });
-
 module.exports = router;
 
