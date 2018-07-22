@@ -3,7 +3,7 @@
         <a class="addProduct btn btn-primary" href="/list">Product Table</a>
     </h3>
     <h1>Edit Product</h1>
-    <form action="/updateProduct/{{products._id}}" method="post">
+    <form action="/updateProduct/{{products._id}}" method="post" enctype="multipart/form-data">
         <table width="100%">
             <tbody>
                 <tr>
@@ -17,6 +17,13 @@
                     <td>Image Path</td>
                     <td>
                         <input size="100" type="text" name="imagePath" value="{{products.imagePath}}" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Upload Image</td>
+                    <td>
+                        <input size="100" type="file" name="imagePath" value="{{products.imagePath}}" />
                     </td>
                 </tr>
 

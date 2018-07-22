@@ -3,7 +3,7 @@
         <a class="addProduct btn btn-primary" href="/list">Product Table</a>
     </h3>
     <h1>Create New Product</h1>
-    <form action="/addNewProduct" method="post">
+    <form action="/addNewProduct" method="post" enctype="multipart/form-data">
         <table>
             <tbody>
                 <tr>
@@ -16,7 +16,7 @@
                 <tr>
                     <td>Image Path</td>
                     <td>
-                        <input type="text" name="imagePath" />
+                        <input type="file" name="imagePath" />
                     </td>
                 </tr>
 
