@@ -19,20 +19,6 @@ router.get('/addNewProduct', function (req, res) {
     res.render('shop/addProduct', { title: 'Page Add' });
 });
 
-// router.post('/addNewProduct', function (req, res) {
-//     var product = new Product(req.body);
-
-//     product.save(function (err) {
-//         if (err) {
-//             console.log(err);
-//             res.render("shop/addProduct");
-//         } else {
-//             console.log("Successfully created an product.");
-//             res.redirect("/");
-//         }
-//     });
-// });
-
 router.post("/addNewProduct", function (req, res) {
     var form = new formidable.IncomingForm();
     var fullFilename;
@@ -132,18 +118,18 @@ router.post('/updateProduct/:id', function (req, res) {
         console.log('Filename ' + file.name);
         if (file.name) {
             fullfilename = './photo_uploads/' + file.name;
-            if(file.name){
-                fullfilename = './photo_uploads/'+ file.name;
+            if (file.name) {
+                fullfilename = './photo_uploads/' + file.name;
             }
         }
     });
 
-        form.on('fileBegin', function (name, file) {
-            console.log("Masuk upload, filename : "+file.name);
-            if(file.name){
+    form.on('fileBegin', function (name, file) {
+        console.log("Masuk upload, filename : " + file.name);
+        if (file.name) {
             file.path = process.cwd() + '/public/photo_uploads/' + file.name
-            }
-        });
+        }
+    });
 });
 
 router.get('/likes/:id', function (req, res) {
