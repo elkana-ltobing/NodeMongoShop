@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/add-to-cart/:id', function (req, res, next){
     var productId = req.params.id;
-    var cart = new Cart(req.session.cart ? req.session.cart.items : {})
+    var cart = new Cart(req.session.cart ? req.session.cart : {})
 
     Product.findById(productId, function (err, product){
         cart.add(product, product.id);
@@ -31,24 +31,38 @@ router.get('/shopping-cart', function (req, res, next){
     if (!req.session.cart) {
         return res.render('shop/shopping-cart', {products: null})
     }
-    var cart = new Cart(req.session.cart.items);
+    var cart = new Cart(req.session.cart);
     res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice})
 })
 
-router.get('/reduce-one/:id', function (req, res, next){
+router.get('/reduce/:id', function (req, res, next){
     var productId = req.params.id;
-    var cart = new Cart(req.session.cart ? req.session.cart.items : {})
+    var cart = new Cart(req.session.cart ? req.session.cart: {})
 
-    Product.findById(productId, function (err, product){
-        cart.reduceOne(product, product.id);
-        req.session.cart = cart;
-        res.redirect('/');
-    })
+    cart.reduceByOne(productId);
+    req.session.cart = cart;
+    res.redirect('/shopping-cart')
+})
+
+router.get('/remove/:id', function (req, res, next){
+    var productId = req.params.id;
+    var cart = new Cart(req.session.cart ? req.session.cart: {})
+
+    cart.removeItem(productId);
+    req.session.cart = cart;
+    res.redirect('/shopping-cart')
 })
 
 router.get('/addNewProduct', function (req, res) {
     res.render('shop/addProduct', { title: 'Page Add' });
 });
+
+router.get('/logout', function(req, res, next){
+    session = req.session;
+    session.destroy(function(err){
+        res.redirect('/')
+    })
+})
 
 router.post("/addNewProduct", function (req, res) {
     var form = new formidable.IncomingForm();
