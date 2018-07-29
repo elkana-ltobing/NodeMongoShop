@@ -30,7 +30,7 @@ module.exports = function Cart(initItems) {
         return arr;
     }
 
-    this.reduce = function (item, id) {
+    this.reduceOne = function (item, id) {
         var storedItem = this.items[id];
         if (!storedItem) {
             storedItem = this.items[id] = { qty: 0, item: item, price: 0 };
