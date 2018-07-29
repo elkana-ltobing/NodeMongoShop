@@ -8,8 +8,8 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
+var MongoStore = require('connect-mongo');
 var validator = require('express-validator');
-
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
@@ -30,14 +30,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(validator());
-app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
+app.use(session({
+  secret: 'mysupersecret',
+  resave: false,
+  saveUninitialized: false,
+  // store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
+app.use(function (req, res, next) {
+  req.session.cookie.maxAge = 180 * 60 * 1000; // 3 hours
+  next();
+})
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
   res.locals.login = req.isAuthenticated();
+  next();
+})
+
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
   next();
 })
 

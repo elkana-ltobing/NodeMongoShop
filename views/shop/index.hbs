@@ -11,8 +11,9 @@
                 <h3>{{ this.title }}</h3>
                 <p class="description">{{ this.description }}</p>
                 <div class="clearfix">
+                    <a href="/add-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
                     <div class="price pull-left">IDR {{ this.price }}</div>
-                    <a href="#" class="btn btn-success pull-right" role="button">Add to cart</a>
+                    {{!-- <a href="#" class="btn btn-success pull-right" role="button">Add to cart</a> --}}
                     {{!-- <form action="/likes/{{this._id}}" method="get"></form> --}}
                     {{!-- <button class="btn btn-primary pull-right" type="submit">Likes</button> --}}
                     {{!-- </form> --}}
